@@ -1,0 +1,74 @@
+% arara: xelatex: {synctex: "1"}
+% arara: bibtex
+% arara: xelatex: {synctex: "1"}
+% arara: xelatex: {synctex: "1"}
+
+\documentclass{article}
+\usepackage[affil-it]{authblk}
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{latexsym}
+\usepackage{amsfonts,amsmath,amssymb}
+\usepackage{url}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false,pdfborder={0 0 0}}
+\usepackage{textcomp}
+\usepackage{longtable}
+\usepackage{multirow,booktabs}
+\usepackage{fullpage}
+
+
+\newcommand{\itemt}[1]{\item \textbf{#1}}
+
+\begin{document}
+
+\title{VFPIX Silicon Telescope \\ Design Document}
+\author{Caleb Fangmeier \\
+        Frank Meier}
+\affil{Univ. of Nebraska-Lincoln}
+\date{\today}
+
+
+\maketitle
+
+\begin{abstract}
+  A silicon strip detector based telescope is being designed for the purpose of testing a under-development silicon pixel detector for the VFPIX upgrade of CMS.
+
+  Here is documented the goals, constraints, and design decisions of the telescope.
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+\section{Overview of Previous Work}
+Here is some junk\cite{Turner2012}
+\section{System Components}
+The telescope consists of the following main components.
+\begin{enumerate}
+  \itemt{Silicon Strip Sensor}
+  \itemt{Analog Pipeline Chip x128 (APC128)}
+  \itemt{Sensor Mount Card (SMT)}
+  \itemt{Back-Plane Board (BPB)}
+  \itemt{Telescope Readout Board (TRB)}
+\end{enumerate}
+
+\section{Performance Targets}
+\subsection{Precision/Accuracy Targets}
+\subsection{Speed Targets}
+
+\section{Hardware Proposal}
+
+\section{Timeline}
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+
+\end{document}
