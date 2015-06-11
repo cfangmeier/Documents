@@ -48,6 +48,7 @@
 *.glg
 *.glo
 *.gls
+*.glsdefs
 
 # hyperref
 *.brf
