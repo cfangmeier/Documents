@@ -25,6 +25,7 @@
 \newacronym{BPB}{BPB}{Back-Plane Board}
 \newacronym{APC}{APC128}{Analog Pipeline Chip 128}
 \newacronym{SNR}{SNR}{Signal-to-Noise Ratio}
+\newacronym{SEU}{SEU}{Single-Event Upset}
 
 
 
@@ -76,6 +77,8 @@ The telescope consists of the following main components.
     \todo{Find documentation for strip sensors.}
   \itemt{Analog Pipeline Chip x128 (\gls{APC})}
     The \gls{APC} (fig. \ref{fig:APC128_Schematic}) is a silicon chip designed for reading out charge from Silicon strip sensors. Each \gls{APC} contains 128 channels. The sensor being used each have 512 strips. Therefore, each sensor requires four \gls{APC} chips to read them out. The \gls{APC}'s normal operation is as follows:
+
+    A bit is shifted into the pipeline shift register. This allows the preamp (leftmost in the diagram) to push charge onto the $C_p$ capacitors proportional to the current pulse-height. After the bit has shifted through the pipeline, another bit is shifted in. This pattern continues until a trigger is recieved, at which point a bit is placed into the pipeline to enable the proper $C_p$ capacitor based on the trigger delay. This capacitor is then read back through the preamp and the charge gets placed on the $C_L$ capacitor. Finally, when the charge is on each of the 128 $C_L$ capacitors a bit is pushed into the readout shift-regiter which enables one channel at a time to serialize the output.
 
     \begin{figure}[h]
       \centering
@@ -129,12 +132,12 @@ The design choices of the \gls{SMC} are especially critical becuase it is respon
 
 The readout of the \gls{APC} is analog so it is more susceptable to noise and interference than a digital signal would be.
 
-The SMC will be subject to the highest radiation fluence of the entire system which limits the choices of hardware that can be placed on the it. Any FLASH memory dependent hardware will be subject to single-event-upsets(SEUs).
+The SMC will be subject to the highest radiation fluence of the entire system which limits the choices of hardware that can be placed on the it. Any FLASH memory dependent hardware will be subject to \gls{SEU}s.
 
 Because of these restrictions, only the minimum hardware necessary to ensure high quality \gls{APC} operation and output will be placed on the SMC. This hardware consists of a 2-channel differential-line driver amp. The chosen amp is the ADA4950-2\cite{ADA4950}. Two of these will be placed on each SMC, as close as possible to the \gls{APC}s to minimize the capacitave load on the outputs.
 
 
-It has been determined (see sec. \ref{sec:PreviousWork}) that to achieve optimal operation of each \gls{APC} in the telescope, it is important to be able to set each \gls{APC}s Aref voltage individually. To do this, four pots will be placed on each SMC to allow for idividual calibration of each \gls{APC}s Aref value.
+It has been determined (see sec. \ref{sec:PreviousWork}) that to achieve optimal operation of each \gls{APC} in the telescope, it is important to be able to set each \gls{APC}s Aref voltage individually. To do this, four potentiometers will be placed on each SMC to allow for idividual calibration of each \gls{APC}s Aref value. Potentiometers were chosen for this task over DACs becuase of the risk of \gls{SEU}s in the DACs are placed near the beam, and the addition of many new signal lines if they are placed far from the beam.
 
 
 \begin{figure}[h!]
@@ -147,7 +150,7 @@ It has been determined (see sec. \ref{sec:PreviousWork}) that to achieve optimal
 
 \subsection{Back-Plane Board}
 
-The primary jobs of the \gls{BPB} are to route signals between the \gls{TRB} and the \gls{SMC}s and hold the \gls{SMC}s in place.
+The primary jobs of the \gls{BPB} are to route signals between the \gls{TRB} and the \gls{SMC}s and hold the \gls{SMC}s in place. It has been considered to digitize the signals on the \gls{BPB} by placing the ADCs on it. However, this has two major drawbacks. First, since ADCs are stateful devices, they are susceptable to \gls{SEU}s
 \todo{decide placement of ADCs, either on TRB or BPB}
 
 \begin{figure}[h!]
