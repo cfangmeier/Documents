@@ -1,5 +1,3 @@
-% arara: xelatexmk: {synctex: "1"}
-
 \documentclass{article}
 \usepackage[affil-it]{authblk}
 \usepackage{graphicx}
@@ -14,8 +12,21 @@
 \usepackage{longtable}
 \usepackage{multirow,booktabs}
 \usepackage{todonotes}
+\usepackage[xindy]{glossaries}
+\usepackage{units}
+
 
 \newcommand{\itemt}[1]{\item \textbf{#1}}
+\newcommand{\um}{$\mu$m}
+
+\makeglossaries
+
+\newacronym{SMC}{SMC}{Sensor Mount Card}
+\newacronym{BPB}{BPB}{Back-Plane Board}
+\newacronym{APC}{APC128}{Analog Pipeline Chip 128}
+\newacronym{SNR}{SNR}{Signal-to-Noise Ratio}
+
+
 
 \begin{document}
 
@@ -23,6 +34,7 @@
 \author{Caleb Fangmeier}
 \author{Frank Meier}
 \affil{Univ.\ of Nebraska-Lincoln}
+
 \date{\today}
 
 
@@ -46,15 +58,13 @@
 
 \section{Overview of Previous Work}
 \label{sec:PreviousWork}
+This project is an iteration and redesign of an existing telescope. Previous work\cite{Turner2012} has been done to design a versatile \gls{SMC}/\gls{BPB} with features including the ability to chain multiple \gls{BPB}s together to add aditional legs to the telescope. The \gls{SMC}, in particular, was well designed to allow the sensor strips to oriented $\pm45^o$ with respect to the plane of the BPB. This allows different sensors strips to be oriented either parallel or perpendicular to each other. The same telescope hardware can then be configured to measure to various degrees either vertical or horizontal accuracy by flipping the \gls{SMC}s so the sensor strips align with either axis. This general design will be kept for the next iteration of the telescope, however the \gls{SMC}s themselves will be iterated upon as described in \ref{sec:HardProp:SMC}.
 
-This project is an iteration and redesign of an existing telescope. Previous work\cite{Turner2012} has been done to design a versatile SMC/BPB with features including the ability to chain multiple PBPs together to add aditional legs to the telescope. The SMC, in particular, was well designed to allow the sensor strips to oriented $\pm45^o$ with respect to the plane of the BPB. This allows different sensors strips to be oriented either parallel or perpendicular to each other. The same telescope hardware can then be configured to measure to various degrees either vertical or horizontal accuracy by flipping the SMCs so the sensor strips align with either axis. This general design will be kept for the next iteration of the telescope, however the SMCs themselves will be iterated upon as described in \ref{sec:HardProp:SMC}.
+Work has also been done to improve the readout properties of the \gls{APC} chips.\cite{Ryser2013} The \gls{APC} has the unfortunate problem of a relatively weak output that has trouble driving a readout line at high frequencies. A proposed solution was to add a simple emitter-follower circuit on the BPB to reduce the load on the \gls{APC} output and drive the line going to the ADCs with the transistor. This resulted in an improved readout speed of 250ns per channel. It is hoped that by using a dedicated differential line-driver instead of the basic emitter-follower, an even better readout speed can be achieved(see sec. \ref{sec:PerformanceTargets}). 
 
-Work has also been done to improve the readout properties of the APC128 chips.\cite{Ryser2013} The APC128 has the unfortunate problem of a relatively weak output that has trouble driving a readout line at high frequencies. A proposed solution was to add a simple emitter-follower circuit on the BPB to reduce the load on the APC128 output and drive the line going to the ADCs with the transistor. This resulted in an improved readout speed of 250ns per channel. It is hoped that by using a dedicated differential line-driver instead of the basic emitter-follower, an even better readout speed can be achieved.
+It has also been discovered that there is significant variation between APCs where, all other things being equal, the output levels will vary from chip to chip by as much as 50mV.\cite{Ryser2013} However, this can be compensated for by adjusting the value of the Aref input per chip.
 
-It has also been discovered that there is significant variation between APCs where, all other things being equal, the output levels will vary from chip to chip by as much as 50mV.\cite{Ryser2013} However, this can be compensated for by adjusting the value of the Aref input per chip. 
-
-The precision of a strip telescope with charge sharing can be dramatically imporoved by improving its signal-to-noise ratio (SNR). It has been demonstrated that by using a somewhat more complex readout pattern, wherein some background noise is removed by subtracting adjacent values in the readout pipeline, the SNR can be increased to approximately 25.An improvement from the 5-10 seen without this trick.\cite{Ryser2013} 
-
+The precision of a strip telescope with charge sharing can be dramatically imporoved by improving its \gls{SNR}. It has been demonstrated that by using a somewhat more complex readout pattern, wherein some background noise is removed by subtracting adjacent values in the readout pipeline, the \gls{SNR} can be increased to approximately 25.An improvement from the 5-10 seen without this trick.\cite{Ryser2013}
 
 
 
@@ -64,36 +74,37 @@ The telescope consists of the following main components.
 \begin{enumerate}
   \itemt{Silicon Strip Sensor}
     \todo{Find documentation for strip sensors.}
-  \itemt{Analog Pipeline Chip x128 (APC128)}
-    The APC128 (fig. \ref{fig:APC128_Schematic}) is a silicon chip designed for reading out charge from Silicon strip sensors. Each APC128 contains 128 channels. The sensor being used each have 512 strips. Therefore, each sensor requires four APC128 chips to read them out. The APC128's normal operation is as follows:
+  \itemt{Analog Pipeline Chip x128 (\gls{APC})}
+    The \gls{APC} (fig. \ref{fig:APC128_Schematic}) is a silicon chip designed for reading out charge from Silicon strip sensors. Each \gls{APC} contains 128 channels. The sensor being used each have 512 strips. Therefore, each sensor requires four \gls{APC} chips to read them out. The \gls{APC}'s normal operation is as follows:
 
     \begin{figure}[h]
       \centering
       \includegraphics{./figures/APC128_Schematic.png}
-      \caption{A schematic diagram of the APC128 chip.}
+      \caption{A schematic diagram of the \gls{APC} chip.}
       \label{fig:APC128_Schematic}
     \end{figure}
 
   \itemt{Sensor Mount Card (SMC)}
-    The SMC holds the Strip Sensor, 4 APC128, and some auxillary components to facilitate the operation of the APC128.  
+    The SMC holds the Strip Sensor, 4 \gls{APC}, and some auxillary components to facilitate the operation of the \gls{APC}.
   \itemt{Back-Plane Board (BPB)}
-    The BPB holds four SMCs. Its job is to physically hold the SMCs in place as well as route the signals between the SMC and the TRB. 
+    The BPB holds four SMCs. Its job is to physically hold the SMCs in place as well as route the signals between the SMC and the TRB.
   \itemt{Telescope Readout Board (TRB)}
-    The TRB is responsible for controlling the operation of the telescope. This means it must generate the control signals for the APC128 chips as well as the ADCs that will digitize and serialize the data being read from the APC128s. It will also contain an FPGA with supporting hardware to allow it to communicate with a connected PC via a USB connection. It must also
+    The TRB is responsible for controlling the operation of the telescope. This means it must generate the control signals for the \gls{APC} chips as well as the ADCs that will digitize and serialize the data being read from the \gls{APC}s. It will also contain an FPGA with supporting hardware to allow it to communicate with a connected PC via a USB connection. It must also
 \end{enumerate}
 
 \section{Performance Targets}
 
 \begin{itemize}
-  \itemt{SNR:} 40
+  \itemt{\gls{SNR}:} 40
   \itemt{Readout Speed:} 100ns/channel $\rightarrow$ 8kHz readout of entire telescope
   \itemt{Pipeline Speed:} 40MHz, will vary with source
 \end{itemize}
 
 
 \subsection{Precision/Accuracy Targets}
+\label{sec:PerformanceTargets}
 \todo{check precision targets}
-For charactering pixel sensors with pixel pitch as small as 25$\mu$m, a tracking precision of 5$\mu$m is desired. To achieve this, we require a SNR of better than 40 
+For charactering pixel sensors with pixel pitch as small as \unit[25]{\um}, a tracking precision of better than \unit[1]{\um} is desired. To achieve this, we require a \gls{SNR} of better than 40.
 \subsection{Speed Targets}
 
 \section{Hardware Proposal}
@@ -108,34 +119,35 @@ The silicon micro-strip sensors that will be used to measure particle tracks in 
   \label{fig:Microstrip_Sensor}
 \end{figure}
 
-\subsection{Analog Pipeline Chip (APC128)}
-The APC128 will be used to read charge from the silicon strip sensor. 
+\subsection{Analog Pipeline Chip}
+The \gls{APC} will be used to read charge from the silicon strip sensor.
 
-\subsection{Sensor Mount Card (SMC)}
-\label{HardProp:SMC}
+\subsection{Sensor Mount Card}
+\label{sec:HardProp:SMC}
 
-The design choices of the SMC are especially critical becuase it is responsible for ensuring optimal operation of the APC128 chips, both in control and readout. 
+The design choices of the \gls{SMC} are especially critical becuase it is responsible for ensuring optimal operation of the \gls{APC} chips during both control and readout.
 
-The readout of the APC128 is analog so it is more susceptable to noise and interference than a digital signal would be. 
+The readout of the \gls{APC} is analog so it is more susceptable to noise and interference than a digital signal would be.
 
-The SMC will be subject to the highest radiation fluence of the entire system which limits the choices of hardware that can be placed on the it. Any FLASH memory dependent hardware will be subject to single-event-upsets(SEUs). 
+The SMC will be subject to the highest radiation fluence of the entire system which limits the choices of hardware that can be placed on the it. Any FLASH memory dependent hardware will be subject to single-event-upsets(SEUs).
 
-Because of these restrictions, only the minimum hardware necessary to ensure high quality APC128 operation and output will be placed on the SMC. This hardware consists of a 2-channel differential-line driver amp. The chosen amp is the ADA4950-2. Two of these will be placed on each SMC, as close as possible to the APC128s to minimize the capacitave load on the outputs.
+Because of these restrictions, only the minimum hardware necessary to ensure high quality \gls{APC} operation and output will be placed on the SMC. This hardware consists of a 2-channel differential-line driver amp. The chosen amp is the ADA4950-2\cite{ADA4950}. Two of these will be placed on each SMC, as close as possible to the \gls{APC}s to minimize the capacitave load on the outputs.
 
-It has been determined (see sec. \ref{sec:PreviousWork}) that to achieve optimal operation of each APC128 in the telescope, it is important to be able to set each APC128s Aref voltage individually. To do this, four pots will be placed on each SMC to allow for idividual calibration of each APCs Aref value.
+
+It has been determined (see sec. \ref{sec:PreviousWork}) that to achieve optimal operation of each \gls{APC} in the telescope, it is important to be able to set each \gls{APC}s Aref voltage individually. To do this, four pots will be placed on each SMC to allow for idividual calibration of each \gls{APC}s Aref value.
 
 
 \begin{figure}[h!]
   \centering
   \includegraphics{./figures/SMC.eps}
-  \caption{An illustration of the SMC. Not shown: APC128 control signals}
+  \caption{An illustration of the SMC. Not shown: \gls{APC} control signals}
   \label{fig:SMC}
 \end{figure}
 
 
-\subsection{Back-Plane Board (BPB)}
+\subsection{Back-Plane Board}
 
-The primary jobs of the BPB are to route signals between the TRB and the SMCs and hold the SMCs in place.
+The primary jobs of the \gls{BPB} are to route signals between the \gls{TRB} and the \gls{SMC}s and hold the \gls{SMC}s in place.
 \todo{decide placement of ADCs, either on TRB or BPB}
 
 \begin{figure}[h!]
@@ -145,8 +157,8 @@ The primary jobs of the BPB are to route signals between the TRB and the SMCs an
   \label{fig:PBP}
 \end{figure}
 
-\subsection{Telescope Readout Board (TRB)}
-\missingfigure{TRB Block diagram \& illustration}
+\subsection{Telescope Readout Board}
+\missingfigure{\gls{TRB} Block diagram \& illustration}
 
 \section{Timeline}
 \todo{Fill in timeline}
@@ -155,5 +167,7 @@ The primary jobs of the BPB are to route signals between the TRB and the SMCs an
 \bibliographystyle{plain}
 \bibliography{references}
 
+\glsaddall
+\printglossaries
 
 \end{document}
