@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -159,8 +159,8 @@ def plot_dig_waveform():
 def main():
     with plt.xkcd():
         pass
-        # plot_ph()
-        # plot_step_curve()
+        plot_ph()
+        plot_step_curve()
         plot_dig_waveform()
 
 if __name__ == '__main__':
