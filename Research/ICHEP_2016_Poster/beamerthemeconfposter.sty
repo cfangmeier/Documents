@@ -15,7 +15,6 @@
 \usepackage{exscale}
 \RequirePackage{textcomp}
 \RequirePackage{amsmath,amssymb}
-\usefonttheme{professionalfonts}
 \newcommand{\makeruleinbox}{{\usebeamercolor[bg]{block alerted title}\centering\hspace*{-0.7cm}\rule{\inboxrule}{0.5cm}}}
 \usepackage{ragged2e}
 
@@ -163,12 +162,12 @@
 \setbeamercolor{block alerted body}{fg=black,bg=jblue!10}
 
 % set the fonts
-\setbeamerfont{section in head/foot}{series=\bfseries}
-\setbeamerfont{block title}{series=\bfseries}
-\setbeamerfont{block alerted title}{series=\bfseries}
-\setbeamerfont{frametitle}{series=\bfseries}
-\setbeamerfont{frametitle}{size=\Large}
-\setbeamerfont{block body}{series=\rmfamily}
+% \setbeamerfont{section in head/foot}{series=\bfseries}
+% \setbeamerfont{block title}{series=\bfseries}
+% \setbeamerfont{block alerted title}{series=\bfseries}
+% \setbeamerfont{frametitle}{series=\bfseries}
+% \setbeamerfont{frametitle}{size=\Large}
+% \setbeamerfont{block body}{series=\rmfamily}
 
 % set some beamer theme options
 \setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
@@ -200,8 +199,36 @@
     \vskip1cm
     \centering
     \usebeamercolor{title in headline}{\color{jblue}\Huge{\textbf{\inserttitle}}\\[0.5ex]}
-    \usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\[1ex]}
-    \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
+    % \usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\[1ex]}
+    % \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
+    \begin{columns}[c]
+      \begin{column}{.5\linewidth}
+        \begin{flushleft}
+          \usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}}
+        \end{flushleft}
+      \end{column}
+      \vrule{}
+      \begin{column}{.5\linewidth}
+          % % \usebeamercolor{institute in headline}{\color{fg}\Large{\insertinstitute}\\[1ex]}
+          % \begin{columns}[c]
+          %   \begin{column}{0.5\textwidth}
+          %     \begin{figure}
+          %       % \begin{flushleft}
+          %         \includegraphics[height=3in]{figures/CMS}
+          %       % \end{flushleft}
+          %     \end{figure}
+          %   \end{column}
+          %   \begin{column}{0.5\textwidth}
+              \begin{figure}
+                \begin{flushright}
+                  \includegraphics[height=3in]{figures/UNL}
+                \end{flushright}
+              \end{figure}
+            % \end{column}
+          % \end{columns}
+
+      \end{column}
+    \end{columns}
     \vskip1cm
    \end{column}
    \vspace{1cm}
@@ -237,6 +264,37 @@
 }
 
 \setbeamertemplate{block end}
+{
+  \end{beamercolorbox}
+  \vskip\smallskipamount
+}
+
+% Example Block definition
+\setbeamertemplate{block example begin}
+{
+  \par\vskip\medskipamount
+  \begin{beamercolorbox}[colsep*=0ex,dp={2ex},center]{block title}
+    \vskip-0.25cm
+    \color{black}{\Large\insertblocktitle}
+    \begin{flushleft}
+    \vskip-1cm
+    \begin{tikzpicture}[remember picture,overlay]
+      \shade [inner color=gray,outer color=white]
+      (0,0) rectangle (\textwidth,0.3cm);
+    \end{tikzpicture}
+    \end{flushleft}
+  \end{beamercolorbox}
+  {\parskip0pt\par}
+  \ifbeamercolorempty[bg]{block title}
+  {}
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}
+  \usebeamerfont{block body}
+  \vskip-0.5cm
+  \begin{beamercolorbox}[colsep*=0ex,vmode]{block body}
+  \justifying
+}
+
+\setbeamertemplate{block example end}
 {
   \end{beamercolorbox}
   \vskip\smallskipamount

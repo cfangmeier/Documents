@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
+
+
 
 
 def plot_ph():
@@ -19,8 +22,6 @@ def plot_ph():
     pt_x, pt_y = xs[40], dat[40]
     ax.annotate("", xy=(pt_x-15, pt_y), xytext=(pt_x-15, 0),
                 arrowprops=dict(arrowstyle="|-|", color='k'))
-    ax.text(pt_x-17.8, 10, "Pulse Height", rotation='vertical')
-    ax.plot([pt_x, pt_x-15], [pt_y, pt_y], 'k--')
 
     samples_x = xs[1::20]
     samples_y = dat[1::20]
@@ -28,8 +29,10 @@ def plot_ph():
     for s_x, s_y in zip(samples_x[0:], samples_y[0:]):
         ax.annotate("Sample Points",
                     xy=(s_x, s_y),
-                    xytext=(80, 10),
+                    xytext=(60, 10),
                     arrowprops=dict(arrowstyle="-|>", color='r'))
+    ax.text(pt_x-19.8, 12.5, "Pulse Height", rotation='vertical')
+    ax.plot([pt_x, pt_x-15], [pt_y, pt_y], 'k--')
 
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
@@ -75,7 +78,7 @@ def plot_step_curve():
     ax.plot(dat_xs, dat_ys)
     ax.annotate("", xy=(6.1, 11.5), xytext=(8.9, 11.5),
                 arrowprops=dict(arrowstyle="|-|", color='k'))
-    ax.text(9.0, 11.5, "Charge shared among 3 strips")
+    ax.text(9.0, 11.0, "Charge shared among \n3 strips")
 
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
@@ -134,7 +137,9 @@ def single_dig_waveform(ax, i_form, v_scale=0.75):
     if i_form == 0:
         for i, d in enumerate(dat[:13]):
             ax.plot([i/2, i/2, i/2+.55], [2.5, -0.5, -1.05], '--g')
-            ax.text(i/2+.08, -.5, "strip {}".format(i+1), rotation=-45)
+            ax.text(i/2+.08, -.5, "strip {}".format(i+1),
+                    rotation=-45,
+                    fontsize=18)
 
 
 def plot_dig_waveform():
@@ -158,6 +163,7 @@ def plot_dig_waveform():
 
 def main():
     with plt.xkcd():
+        mpl.rcParams.update({'font.size': 26})
         pass
         plot_ph()
         plot_step_curve()
