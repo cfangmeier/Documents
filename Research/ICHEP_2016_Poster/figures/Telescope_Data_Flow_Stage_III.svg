@@ -42,9 +42,9 @@
      inkscape:window-height="1390"
      id="namedview4245"
      showgrid="false"
-     inkscape:zoom="2.5811404"
-     inkscape:cx="272.009"
-     inkscape:cy="142.84193"
+     inkscape:zoom="3.6502838"
+     inkscape:cx="389.68146"
+     inkscape:cy="143.67085"
      inkscape:window-x="0"
      inkscape:window-y="50"
      inkscape:window-maximized="1"
@@ -253,7 +253,7 @@
   </g>
   <g
      id="g4183"
-     transform="translate(49.14,79)"
+     transform="matrix(1.4739191,0,0,1.4739191,19.020133,71.391476)"
      style="stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:100000">
     <switch
        id="switch4185"
@@ -288,7 +288,7 @@
      x="298.69983" />
   <g
      id="g4191"
-     transform="translate(403.14,77)"
+     transform="matrix(1.4164514,0,0,1.4164514,375.74812,71.334638)"
      style="stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:100000">
     <switch
        id="switch4193"
