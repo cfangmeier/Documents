@@ -84,8 +84,7 @@
 % \begin{columns}
   \small
   % \begin{column}{0.66\textwidth}
-  The innermost layer of the CMS Detector at the LHC is the silicon pixel tracker. The current version of the detector has performed well and been critical to the physics program of CMS\@.  However, as the LHC produces higher instantaneous luminosities and higher center-of-mass energies, the detector must be upgraded to accommodate. The HL-LHC Upgrade of CMS will replace the entire silicon tracking system.  As part of this upgrade, a proposed new section of the pixel tracker will be added in the so-called ``very-forward'' ($\eta\sim4$)region of the detector.  This new section of the detector will have different pixel geometries than the current detector, and these new geometries must be accurately characterized.  Therefore, a telescope is being developed for the express purpose of characterizing these sensors so the pixel geometry can be optimized before settling on a final design to be placed in CMS\@.
-The telescope operates by using eight layers of silicon-strip sensors, with the device-under-test placed with four on each side. A charged-particle beam is directed so it passes through both the strip sensors and the device-under-test. Measurements from the telescope are taken to reconstruct individual particle tracks.
+  The innermost layer of the CMS Detector at the LHC is the silicon pixel tracker. The current version of the detector has performed well and been critical to the physics program of CMS\@.  The HL-LHC Upgrade of CMS will replace the entire silicon tracking system.  As part of this upgrade, a proposed new section of the pixel tracker will be added in the so-called ``very-forward'' ($\eta\sim4$) region of the detector. Because the particles in this region are traveling almost parallel to the magnetic field of the detector, enhanced $\phi$ sensitivity is required to accurately measure track curvature. Therefore, the proposed detector will reshape the standard $100\mu\text{m}\times150\mu\text{m}$ pixels to be more sensitive in $\phi$, sacrificing precision in $\rho$. A telescope is being developed for the express purpose of characterizing different pixel geometries.  The telescope operates by using eight layers of silicon-strip sensors, with the device-under-test placed with four on each side. A charged-particle beam is directed so it passes through both the strip sensors and the device-under-test. Measurements from the telescope are taken to reconstruct individual particle tracks. These tracks are then compared to data collected from the device-under-test to characterize its performance.
 % \end{column}
 % \begin{column}{0.33\textwidth}
 %   \begin{figure}
@@ -111,7 +110,7 @@ The telescope operates by using eight layers of silicon-strip sensors, with the 
                   \item Developed for the tracker of the H1 detector at HERA
                   \item Serializes the analog pulse-heights of 128 channels to dramatically reduce the number of required I/O lines
                   \item Capable of sampling waveform data from of a strip sensor at upwards of 20MHz
-                  \item Features a very good signal-to-noise ratio of 40.
+                  \item Features a very good signal-to-noise ratio of 40
                   \item Low noise combined with inter-strip charge-sharing give each layer of the detector a measurement precision of $\approx\negthickspace1\mu$m
                 \end{itemize}
               \end{mdframed}
@@ -160,7 +159,7 @@ The telescope operates by using eight layers of silicon-strip sensors, with the 
                         \item 4$\times V_{analog}$ trimmer potentiometers
                       \end{itemize}
                       \item 4$\times$RJ-45 Ports
-                      \item 1$\times$40-Pin $.1$\textquotedbl~Header
+                      \item 1$\times$40-Pin $0.1$\textquotedbl~Header
                     \end{itemize}
                   \end{column}
                 \end{columns}
@@ -188,8 +187,8 @@ The telescope operates by using eight layers of silicon-strip sensors, with the 
                       \itemsep0em 
                       \item Generates the control signals needed by the APC-128s
                       \item 32 ADC Channels to read out all APC128s in parallel, minimizing dead time
-                      \item FPGA Board with associated USB hardware enables high-speed communication with online software.
-                      \item Handles external triggering from a variety of sources via an translator mezzanine card.
+                      \item FPGA Board with associated USB hardware enables high-speed communication with online software
+                      \item Handles external triggering from a variety of sources via an translator mezzanine card
                     \end{itemize}
                   \end{column}
                   \vrule{}
@@ -210,7 +209,7 @@ The telescope operates by using eight layers of silicon-strip sensors, with the 
                         \end{itemize}
                       \item $8\times$AD9219 40MHz/10 bit ADCs
                       \item $8\times$RJ-45 Ports
-                      \item $2\times$40-Pin $.1$\textquotedbl~Header
+                      \item $2\times$40-Pin $0.1$\textquotedbl~Header
                       \item Bias-voltage control relay
                       \item On-board power regulation
                     \end{itemize}
@@ -250,11 +249,11 @@ The telescope operates by using eight layers of silicon-strip sensors, with the 
       \footnotesize
       \begin{itemize}
       \itemsep0em 
-        \item The analog pulse-heights from the 32 APC-128 in the telescope are digitized by 8 high-speed 4-channel ADCs located on the DAQ board
+        \item The analog pulse-heights from the 32 APC-128s in the telescope are digitized by 8 high-speed 4-channel ADCs located on the DAQ board
         \item The digitized values passed to an FPGA board where they are processed into individual sensor hits
         \item Digitized values smaller than the noise-suppression threshold are dropped
-        \item The sensor hit data is passed across a USB-3 connection to a PC.\@
-        \item Its job finished, the DAQ Board becomes idle and waits for the next trigger.
+        \item The sensor hit data are passed across a USB-3 connection to a PC
+        \item Its job finished, the DAQ Board becomes idle and waits for the next trigger
       \end{itemize}
     \end{column}
     \begin{column}{\onecolwide}
@@ -266,9 +265,9 @@ The telescope operates by using eight layers of silicon-strip sensors, with the 
       \begin{itemize}
         \itemsep0em 
         \item Online software organizes the hits into events and stores them to disk
-        \item Since the detector layers can shift in space significantly during operation, alignment must first be done to accurately measure the geometry of the detector.
-        \item After alignment, the various layer hits can be combined to construct extremely precise tracks.
-        \item The tracks can then be compared for consistency with the data collected in parallel from the device-under-test, and, using the telescope as the ground truth, establish performance characteristics.
+        \item Since the detector layers can shift in space significantly during operation, alignment must first be done to accurately measure the geometry of the detector
+        \item After alignment, the various layer hits can be combined to construct extremely precise tracks
+        \item The tracks can then be compared for consistency with the data collected in parallel from the device-under-test, and, using the telescope as the ground truth, establish performance characteristics
       \end{itemize}
     \end{column}
   \end{columns}
@@ -279,7 +278,7 @@ The telescope operates by using eight layers of silicon-strip sensors, with the 
   \begin{column}{\onecolwide}
     \begin{block}{APC-128 Testboard}
     \begin{overpic}[height=5.5in, width=10in]{figures/APC-128_Testboard.png}
-      \put(4,10){%
+      \put(4,8){%
         \begin{minipage}[t]{0.90\textwidth}
           \begin{mdframed}[style=curvedtranslucent]
             % \vspace{.2in}
@@ -307,7 +306,7 @@ The telescope operates by using eight layers of silicon-strip sensors, with the 
       \checkbox Online/Offline software development \\
       \checkbox Commissioning runs with UNL Diocles electron beam
     \end{alertblock}
-    \vspace{.9in}
+    \vspace{1.1in}
     \setbeamercolor{block alerted title}{fg=black,bg=norange} % Change the alert block title colors
     \setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
     \begin{alertblock}{Contact Information}
@@ -320,7 +319,7 @@ The telescope operates by using eight layers of silicon-strip sensors, with the 
   \begin{column}{\onecolwide}
     \begin{center}
       \begin{overpic}[height=0.7\onecolwide, angle=90]{figures/proposed_pixels}
-        \put(4,5){%
+        \put(4,2){%
           \begin{minipage}[t]{0.6\onecolwide}
             \begin{mdframed}[style=curvedtranslucent]
               % \vspace{.1in}
@@ -331,7 +330,7 @@ The telescope operates by using eight layers of silicon-strip sensors, with the 
           }
       \end{overpic}
     \end{center}
-    \vspace{.4in}
+    \vspace{.6in}
     \setbeamercolor{block title}{fg=red,bg=white} % Change the block title color
     \begin{block}{References} 
       \tiny
