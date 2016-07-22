@@ -199,34 +199,26 @@
     \vskip1cm
     \centering
     \usebeamercolor{title in headline}{\color{jblue}\Huge{\textbf{\inserttitle}}\\[0.5ex]}
-    % \usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\[1ex]}
-    % \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
     \begin{columns}[c]
-      \begin{column}{.5\linewidth}
+      \begin{column}{0.1\textwidth}
+        \begin{figure}
+          \begin{flushleft}
+            \includegraphics[height=3in]{figures/CMS}
+          \end{flushleft}
+        \end{figure}
+      \end{column}
+      \begin{column}{.4\linewidth}
         \begin{flushleft}
+          \vfill{}
           \usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}}
         \end{flushleft}
       \end{column}
-      \vrule{}
       \begin{column}{.5\linewidth}
-          % % \usebeamercolor{institute in headline}{\color{fg}\Large{\insertinstitute}\\[1ex]}
-          % \begin{columns}[c]
-          %   \begin{column}{0.5\textwidth}
-          %     \begin{figure}
-          %       % \begin{flushleft}
-          %         \includegraphics[height=3in]{figures/CMS}
-          %       % \end{flushleft}
-          %     \end{figure}
-          %   \end{column}
-          %   \begin{column}{0.5\textwidth}
-              \begin{figure}
-                \begin{flushright}
-                  \includegraphics[height=3in]{figures/UNL}
-                \end{flushright}
-              \end{figure}
-            % \end{column}
-          % \end{columns}
-
+        \begin{figure}
+          \begin{flushright}
+            \includegraphics[height=3in]{figures/UNL}
+          \end{flushright}
+        \end{figure}
       \end{column}
     \end{columns}
     \vskip1cm
@@ -290,6 +282,7 @@
   {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}
   \usebeamerfont{block body}
   \vskip-0.5cm
+  % \vskip-1.5cm
   \begin{beamercolorbox}[colsep*=0ex,vmode]{block body}
   \justifying
 }
