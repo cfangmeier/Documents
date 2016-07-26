@@ -84,7 +84,7 @@
 % \begin{columns}
   \small
   % \begin{column}{0.66\textwidth}
-  The innermost layer of the CMS Detector at the LHC is the silicon pixel tracker. The current version of the detector has performed well and been critical to the physics program of CMS\@.  The HL-LHC Upgrade of CMS will replace the entire silicon tracking system.  As part of this upgrade, a proposed new section of the pixel tracker will be added in the so-called ``very-forward'' ($\eta\sim4$) region of the detector. Because the particles in this region are traveling almost parallel to the magnetic field of the detector, enhanced $\phi$ sensitivity is required to accurately measure track curvature. Therefore, the proposed detector will reshape the standard $100\mu\text{m}\times150\mu\text{m}$ pixels to be more sensitive in $\phi$, sacrificing precision in $\rho$. A telescope is being developed for the express purpose of characterizing different pixel geometries.  The telescope operates by using eight layers of silicon-strip sensors, with the device-under-test placed with four on each side. A charged-particle beam is directed so it passes through both the strip sensors and the device-under-test. Measurements from the telescope are taken to reconstruct individual particle tracks. These tracks are then compared to data collected from the device-under-test to characterize its performance.
+  The innermost layer of the CMS Detector at the LHC is the silicon pixel tracker. The current version of the detector has performed well and been critical to the physics program of CMS\@.  The HL-LHC Upgrade of CMS will replace the entire silicon tracking system.  As part of this upgrade, a proposed new section of the pixel tracker will be added in the so-called ``very-forward'' ($\eta\sim4$) region of the detector. Because the particles in this region are traveling almost parallel to the magnetic field of the detector, enhanced $\phi$ sensitivity is required to accurately measure track curvature. Therefore, the proposed detector will reshape the standard $100\times150\mu\text{m}$ pixels to be more sensitive in $\phi$, sacrificing precision in $\rho$. A telescope is being developed for the express purpose of characterizing different pixel geometries.  The telescope operates by using eight layers of silicon-strip sensors, with the device-under-test placed with four on each side. A charged-particle beam is directed so it passes through both the strip sensors and the device-under-test. Measurements from the telescope are taken to reconstruct individual particle tracks. These tracks are then compared to data collected from the device-under-test to characterize its performance.
 % \end{column}
 % \begin{column}{0.33\textwidth}
 %   \begin{figure}
@@ -149,7 +149,7 @@
                     \begin{itemize}
                       \itemsep0em 
                       \tiny
-                      \item 4$\times$ Sensor Cards, each with
+                      \item 4$\times$Sensor Cards, each with
                       \begin{itemize}
                         \itemsep0em 
                         \tiny
@@ -285,9 +285,9 @@
             \footnotesize
             A custom board was developed for gaining familiarity with the APC-128 chip, and for testing different control and readout schemes. It features:
             \begin{itemize}
-              \item $1\times$ APC-128 (bottom of board)
-              \item 40-Pin header for supplying control signals
+              \item $1\times$APC-128 (bottom of board)
               \item $1\times$RJ-45 jack for testing differential output stage
+              \item 40-Pin header for supplying control signals
               \item Automatic \emph{and} manual adjustment of analog reference voltages
             \end{itemize}
           \end{mdframed}
@@ -297,16 +297,17 @@
     \end{block}
   \end{column}
   \begin{column}{\onecolwide}
+    \vspace{.25in}
     \begin{alertblock}{Progress}
       \checkedbox System design and parts selection \\
-      \checkedbox APC-128 read out chain proof of concept\\
+      \checkedbox APC-128 readout chain proof of concept\\
       \checkedbox Circuit design and PCB Layout \\
       \checkbox Assembly and offline testing (in progress)\\
       \checkbox FPGA Firmware development and testing \\
       \checkbox Online/Offline software development \\
       \checkbox Commissioning runs with UNL Diocles electron beam
     \end{alertblock}
-    \vspace{1.1in}
+    \vspace{0.85in}
     \setbeamercolor{block alerted title}{fg=black,bg=norange} % Change the alert block title colors
     \setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
     \begin{alertblock}{Contact Information}
@@ -317,20 +318,21 @@
     \end{alertblock}
   \end{column}
   \begin{column}{\onecolwide}
-    \begin{center}
+    \begin{flushright}
       \begin{overpic}[height=0.7\onecolwide, angle=90]{figures/proposed_pixels}
-        \put(4,2){%
-          \begin{minipage}[t]{0.6\onecolwide}
+        \put(-40,10){%
+          \begin{minipage}[t]{0.70\onecolwide}
             \begin{mdframed}[style=curvedtranslucent]
               % \vspace{.1in}
-              \footnotesize
-              Possible prototype pixel sensor layout to improve $p_T$ resolution in the forward region
+              \tiny
+              % Possible prototype pixel sensor layout to improve $p_T$ resolution in the forward region
+              Demonstration of an alternative pixel shape layout with $25\times 600\mu \text{m}$ pixels. The red dots are the bump-bonds to the pixel readout chip, and the black lines are conductive strips. The bump-bonds are placed in the pattern shown to allow usage of the same read-out chip as the rest of the pixel detector.
             \end{mdframed}
           \end{minipage}
           }
       \end{overpic}
-    \end{center}
-    \vspace{.6in}
+    \end{flushright}
+    \vspace{.69in}
     \setbeamercolor{block title}{fg=red,bg=white} % Change the block title color
     \begin{block}{References} 
       \tiny
@@ -340,13 +342,14 @@
         \item \textbf{Software Repository} https://github.com/cfangmeier/VFPIX-telescope-Code
       \end{itemize}
     \end{block}
+    \vspace{-0.17in}
     \setbeamercolor{block title}{fg=red,bg=white} % Change the block title color
     \begin{block}{Acknowledgments} 
       \footnotesize
-      Beat Meier \& Tilman Rohe of \textbf{The Paul Scherrer Institute}\\
-      Frank Meier of \textbf{Heidelberg University}\\
-      Aaron Dominguez \& Rachel Bartek of \textbf{Catholic University of America}
-      Brian Farleigh \& Bob Kelty of \textbf{University of Nebraska \-- Lincoln}
+      Beat Meier \& Tilman Rohe \-- \textbf{The Paul Scherrer Institute}\\
+      Frank Meier \-- \textbf{Heidelberg University}\\
+      Aaron Dominguez \& Rachel Bartek \-- \textbf{Catholic University of America}
+      Brian Farleigh \& Bob Kelty \-- \textbf{University of Nebraska \-- Lincoln}
     \end{block}
   \end{column}
 \end{columns}
