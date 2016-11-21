@@ -13,7 +13,7 @@
 
 \ShortTitle{Telescope to Test CMS Upgrade Pixel Detectors}
 
-\author{\speaker{Caleb Fangmeier}\thanks{A footnote may follow.}\\
+\author{\speaker{Caleb Fangmeier}\\
   Univ.\ of Nebraska \-- Lincoln\\
   E-mail: \email{cfangmei@cern.ch}}
 
@@ -21,7 +21,16 @@
 %        Affiliation\\
 %        E-mail: \email{...}}
 
-\abstract{}
+\abstract{\
+A silicon-strip sensor based particle telescope is being developed to
+aide in the characterization of next-generation silicon-pixel detectors for
+the Compact Muon Solenoid (CMS) detector at the Large Hadron Collider (LHC).
+This telescope is expected to enable sub-micron feature studies of prototype
+detectors by combining 25-{\micron} pitch strip detectors with a very low noise
+readout system. Additionally, this telescope improves upon previous iterations
+by deploying a parallel readout scheme to increase the maximum trigger rate by
+a factor of 16.
+}
 
 \FullConference{38th International Conference on High Energy Physics\\
 		3-10 August 2016\\
@@ -34,8 +43,8 @@
 
 The innermost layer of the CMS Detector at the LHC is the silicon pixel
 tracker. The current version of the detector has performed well and been
-critical to the physics program of CMS\@.  The HL-LHC Upgrade of CMS will
-replace the entire silicon tracking system.  As part of this upgrade, a
+critical to the physics program of CMS. The High Luminosity LHC upgrade of CMS
+will replace the entire silicon tracking system.  As part of this upgrade, a
 proposed new section of the pixel tracker will be added in the so-called
 ``very-forward'' ($\eta\sim4$) region of the detector. Because the particles in
 this region are traveling almost parallel to the magnetic field of the
@@ -45,56 +54,30 @@ Therefore, the proposed detector will reshape the standard
 $100\times150\micron$ pixels to be more sensitive in $\phi$, sacrificing
 precision in $\rho$. A telescope is being developed for the express purpose of
 characterizing different pixel geometries.  The telescope operates by using
-eight layers of silicon-strip sensors, with the device-under-test placed with
-four on each side. A beam of mimumum-ionizing charged particles is directed so
-it passes through both the strip sensors and the the prototype pixel sensors.
-Measurements from the telescope are taken to reconstruct individual particle
-tracks. These tracks are then compared to data collected from the pixel sensor
-to characterize its performance.
+eight layers of silicon-strip sensors, with the prototype pixel detector placed
+with four layers on each side. A beam of minimum-ionizing charged particles is
+directed to pass through both the strip sensors and the prototype pixel
+sensors.  Measurements from the telescope are taken to reconstruct individual
+particle tracks. These tracks are then compared to data collected from the
+pixel sensor to characterize its performance.
 
-\section{Projected Performance}
-The performance of the telescope can be quantified in two ways. First, the
-precision with which individual particle trajectories can be measured, and
-second, the rate at which data can be collected. 
-
-The measurment precision of particle tracks depends on the number of detector
-layers and the single hit precision. The telescope consists of eight
-silicon-strip-sensor layers with strip-widths of $25\micron$. For strip-sensors
-with charge sharing the single hit precision can be approximated by the
-strip-width divided by the signal-to-noise ratio (SNR) of the readout system.
-The expected SNR of the telescope is 25. This yields a single-hit precision of
-$\approx1\micron$. This single-hit precision combined with two measurements in
-each dimension on each side of the prototype sensor should give sub-micron
-track localization at the point of impact with the prototype sensor.
-
-The data collection rate for the telescope is primarily limited by the speed
-sample data can be transferred from the readout chips to the data acquisition
-(DAQ) board. This is because many typical test-beam facilities have beam rates
-on the order of \si{\mega\hertz} while the telescope can only be triggered at
-$\approx15\si{\kilo\hertz}$. The trigger rate can be improved somewhat by
-optimizing the readout electronics using well established techniques such as
-the placement of buffer amplifiers near the readout chips to reduce the RC time
-constant of the cables running from the readout chips to the DAQ board, as well
-as making use of differential signaling on these same cables to reduce
-electro-magnetic interference. It is because of this limitation that the
-decision was made to readout every readout chip in parallel, in contrast with
-previous incarnations of this telescope which serialized sixteen readout chips.
-
-\section{Technical Description}
-What follows is a a description of the hardware of the telescope and a
+\section{Technical Overview}
+What follows is a description of the hardware of the telescope and a
 high-level overview of the readout scheme.
 \subsection{Hardware}
-The telescope has been built up around the choice of sensor and accompaning
+The telescope has been built up around a silicon-strip sensor and accompanying
 readout chip, both of which were originally developed for the H1 vertex
 detector at HERA\cite{Hilgers2001}. The strip sensor contains 512 strips with
-$25\micron$ strip-width. The readout chip is the Analog Pipeline Chip \-- 128
-(APC). Each APC can read 128 strips so four are required to read a single strip
+$25\micron$ strip-width. The readout chip is the {\bf Analog Pipeline Chip \-- 128} (APC).
+Each APC can read 128 strips so four are required to read a single strip
 sensor. The APC operates an integrating pre-amplifier that collects charge from
-the a sensor strip and keeps a 32 sample history of the output of that
+a single sensor strip and keeps a 32 sample history of the output of that
 pre-amplifier. When a trigger is received from, for example, a scintillation
-detector, the appropriate sample is chosen from the 32 based on the calibrated
-trigger latency and the samples from all 128 channels of the APC are serialized
-to its output.
+detector indicating a particle has passed through the telescope, the
+appropriate sample is chosen from the 32-sample history based on the calibrated
+trigger latency and the selected samples from all 128 channels of the APC are
+serialized to its output. An illustration of what the signal coming from a
+single APC may look like is shown in Figure~\ref{fig:readout}. 
 
 \begin{figure}[h]
   \centering
@@ -105,32 +88,44 @@ to its output.
       signals needed by the readout chip are supplied by a 40-pin header
       (bottom-right). The data readout happens over four RJ-45 connectors, into
       which CAT-5 cables are plugged to transmit the signals to the DAQ board.}
+\label{fig:hardware:motherboard}
   \end{subfigure}
   \hspace{.3in}
   \begin{subfigure}[t]{0.45\textwidth}
     \includegraphics[width=\textwidth]{../figures/DAQ_Board_Real.png}
-    \caption{\scriptsize An image of the data acquisition (DAQ) board featuring an 8xRJ-45
+    \caption{\scriptsize An image of the DAQ board featuring an $8\times$RJ-45
       connector (back) to receive data from two connected motherboards, a
       $2\times40$-pin header (front) for supplying control signals to the
       motherboards, and an Opal-Kelly FPGA integration module (center) to
       orchestrate the operation of the telescope.}
   \end{subfigure}
-  \caption{The main hardware components of the telescope are the motherboard with associated sensor-cards (a) and the data acquisition board (b)}
+  \caption{The main hardware components of the telescope are the motherboard
+    with associated sensor-cards (a) and the data acquisition board (b)}
+\label{fig:hardware}
 \end{figure}
 
-The strip-sensor along with four APC are mounted onto a ``sensor-card'' along
-with four buffer amplifiers that compensate for the relativily weak output of
+The strip-sensor and four APC are mounted onto a sensor-card along
+with four buffer amplifiers that compensate for the relatively weak output of
 the APC and generate a more robust differential signal with the proper output
 impedance for driving CAT-5 cables ($100\si{\ohm}$). Four sensor-cards are
-plugged into a motherboard which provides structural support for the
+plugged into a motherboard which provides mechanical support for the
 sensor-cards and routes electrical signals between the sensor cards and the I/O
 ports.
+
+The signals from the two motherboards that constitute the telescope are routed
+to the data acquisition (DAQ) board. The DAQ board contains eight
+40\si{\mega\hertz} 10-bit ADCs with four channels each, giving a total of 32
+digitization channels. The DAQ board also contains circuitry for supplying the
+bias voltage for the strip detectors, and LEMO connectors for supplying an
+external trigger and clock signal. Digital logic is implemented via an Opal
+Kelly FPGA integration module which features an Altera Cyclone IV FPGA, 128MB
+of RAM, and a Super-Speed USB link for data transfer.
 
 \subsection{Readout Scheme}
 The readout scheme has been designed to maximize the data throughput in terms
 of analog strip-sample values per second. This has been done in an effort to
-minimize downtime since the APC cannot take data during readout so any data
-from beam that passes through the telescope during readout is lost. Figure 2
+minimize downtime since the APC cannot take data during readout. Therefore, any data
+from beam that passes through the telescope during readout is lost. Figure~\ref{fig:readout}
 illustrates the readout scheme. Roughly speaking, the readout happens in three
 stages. The first stage is handled by the electronics in and in the immediate
 vicinity of the beam. It is there that the passage of a charged particle is
@@ -138,7 +133,18 @@ converted to an electronic pulse by the strip-sensor and the height of that
 pulse is recorded by the APC.\ The APC then serializes pulse heights from many
 channels to the cables exiting the beam region.
 
-The signals from the 
+The signals from the telescope are then routed to the DAQ board where they are
+digitized and fed into an FPGA. The FPGA contains firmware that is responsible
+for dropping strip readings with pulse-heights below the set threshold and
+grouping the remaining strips into ``hit'' objects. These hit objects, along
+with their associated trigger id, are then pushed to a connected PC via a USB
+link to be saved to disk.
+
+Offline analysis software then uses this data to identify the individual tracks
+of particles passing through the telescope. Detector alignment studies will
+also be critical to measuring the position of the strip sensors to micron
+precision. Finally, the tracks can be interpolated to the impact point with the
+prototype pixel detector and used to measure its properties.
 \begin{figure}[h]
   \centering
   \begin{subfigure}[b]{0.49\textwidth}
@@ -151,13 +157,53 @@ The signals from the
     \includegraphics[height=1.32in]{../figures/Telescope_Data_Flow_Stage_III.pdf}
   \end{subfigure}
   \caption{Illustration of the readout scheme of the telescope.}
+\label{fig:readout}
 \end{figure}
 
 
-\begin{thebibliography}{99}
-\bibitem{...}
-....
+\section{Projected Telescope Performance}
+The performance of the telescope can be quantified in two ways. First, the
+precision with which individual particle trajectories can be measured, and
+second, the rate at which data can be collected. 
 
+The measurement precision of particle tracks depends on the number of detector
+layers and the single hit precision. The telescope consists of eight
+silicon-strip sensor layers with strip-widths of $25\micron$. For strip-sensors
+with charge sharing the single hit precision can be approximated by the
+strip-width divided by the signal-to-noise ratio (SNR) of the readout system.
+The expected SNR of the telescope is 25\cite{Ryser2013}. This yields a single-hit precision of
+$\approx1\micron$. This single-hit precision combined with two measurements in
+each dimension on each side of the prototype sensor should give sub-micron
+track localization at the point of impact with the prototype sensor.
+
+The data collection rate for the telescope is primarily limited by the speed
+sample data can be transferred from the APC to the data acquisition
+board. This is because many typical test-beam facilities have beam rates
+on the order of \si{\mega\hertz} while the telescope can only be triggered at
+$\approx15\si{\kilo\hertz}$. The trigger rate can be improved somewhat by
+optimizing the readout electronics using well established techniques such as
+the placement of buffer amplifiers near the APC to reduce the rise-time
+of signals as they propagate along the cables to the DAQ board, as well as
+the use of differential signaling on these same cables to reduce
+electro-magnetic interference. It is because of this limitation that the
+decision was made to readout every APC in parallel, in contrast with
+previous incarnations of this telescope which serialized sixteen
+APC\cite{Turner2012}. This alone will yield a 16-fold decrease in readout time.
+
+\begin{thebibliography}{99}
+  \bibitem{Hilgers2001}
+M. Hilgers,
+\emph{Development of a radiation hard version of the Analog Pipeline Chip APC128},
+\emph{Nuclear Instruments and Methods} Nucl.Instrum.Meth.A481:556-565,2002
+[{\tt hep-ex/0101023}].
+  \bibitem{Ryser2013}
+A. Ryser,
+\emph{Semesterarbeit \-- Pixel Telescope},
+2013, unpublished
+  \bibitem{Turner2012}
+P. Turner,
+\emph{Design and Implementation of a High Resolution Telescope for CMS Pixel Detector Characterization},
+2012, unpublished
 \end{thebibliography}
 
 \end{document}
