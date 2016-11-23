@@ -10,7 +10,8 @@
 
 \newcommand{\micron}{\si{\micro\meter}}
 % \DeclareCaptionSubType*[arabic]{figure}
-\renewcommand\thesubfigure{Figure \thefigure.\arabic{subfigure}}
+\renewcommand{\subfigurename}{Fig.}
+\renewcommand{\thesubfigure}{\thefigure.\alph{subfigure}}
 \captionsetup[subfigure]{font=scriptsize,labelformat=simple,labelsep=colon}
 
 \title{Pixel Telescope to test pixel Phase II ROCs and sensors}
@@ -53,10 +54,11 @@ new section of the pixel tracker is proposed to be added in the so-called
 this region are traveling almost parallel to the magnetic field of the
 detector, enhanced $\phi$ sensitivity is required to accurately measure track
 curvature, a critical measurement for finding particle momentum and charge.
-The proposed new detector section will have more elongated pixels, relative to
-the current CMS pixel tracker, for enhanced $\phi$ sensitivity, while
-sacrificing sensitivity in $\rho$.  This contribution presents a telescope
-being developed primarily to characterize these elongated pixel geometries.
+The proposed new detector section will feature pixels with increased elongation,
+relative to the current CMS pixel tracker, for enhanced $\phi$ sensitivity,
+while sacrificing sensitivity in $\rho$.  This contribution presents a
+telescope being developed primarily to characterize these elongated pixel
+geometries.
 
 The telescope consists of eight layers of silicon-strip sensors, with the
 prototype pixel detector placed in the center surrounded by four strip sensor
@@ -110,12 +112,12 @@ The strip sensor and four APC are mounted onto a sensor-card along
 with four buffer amplifiers that compensate for the relatively weak output of
 the APC and generate a more robust differential signal with the proper output
 impedance for driving CAT-5 cables ($100\si{\ohm}$). Four sensor-cards are
-plugged into a motherboard (Fig.~\ref{fig:hardware:motherboard}) which provides mechanical support for the
+plugged into a motherboard (Fig.~\subref{fig:hardware:motherboard}) which provides mechanical support for the
 sensor-cards and routes electrical signals between the sensor cards and the I/O
 ports.
 
 The signals from the two motherboards that constitute the telescope are routed
-to the data acquisition (DAQ) board (Fig.~\ref{fig:hardware:daq}). The DAQ board contains eight
+to the data acquisition (DAQ) board (Fig.~\subref{fig:hardware:daq}). The DAQ board contains eight
 40\si{\mega\hertz} 10-bit ADCs with four channels each, giving a total of 32
 digitization channels. The DAQ board also contains circuitry for supplying the
 bias voltage for the strip detectors, and LEMO connectors for supplying an
