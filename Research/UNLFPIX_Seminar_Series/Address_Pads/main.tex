@@ -1,0 +1,210 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{appendixnumberbeamer}
+
+\usetheme[left,hideothersubsections,height=1.2cm,width=2.0cm]{UNLTheme}
+
+\title[\textbf{Address Pads}]{-- SiLab Lecture Series -- \\ \textbf{Address Pads}}
+\author{Caleb~Fangmeier}
+\institute[UNL]{University of Nebraska - Lincoln}
+\date{June 2, 2016}
+\subject{Address Pads}
+
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Addressing}
+\begin{frame}{Addressing}
+    \begin{center}
+    \alert{Problem}: \\ Many devices must communicate on shared lines.
+    \pause
+    \vspace{.15in}\hrule
+    \end{center}
+    \emph{Why?}
+    \begin{itemize}
+        \pause \item Limited physical space
+        \pause \item Cost
+        \pause \item Simplicity of design
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Addressing}
+    \centering
+    \alert{Solution}: \\ Addressing!
+    \pause 
+    \vspace{.15in}\hrule
+    \begin{itemize}
+        \item Devices take turns talking on shared line
+        \pause \item Typically controlled by a single ``\textbf{Master}''
+        \pause \item All other devices are ``\textbf{Slaves}''
+        \pause \item All \textbf{Slave} devices have an \textbf{address}
+    \end{itemize}
+\end{frame}
+
+\section{A Simple Example}
+\begin{frame}{The ``D'' Flip-Flop}
+    \begin{columns}
+        \begin{column}{0.33\textwidth}
+            {\footnotesize
+            \begin{itemize}
+                \item Stores a single bit
+                \item Has a \textbf{Data} input and a \textbf{Clock} input
+                \item Data updates when clock transitions from low to high
+            \end{itemize}
+            }
+        \end{column}
+        \begin{column}{0.66\textwidth}
+            \begin{figure}
+                \shadowbox{
+                \includegraphics[width=0.95\textwidth]{"figures/Master-Slave 1-1a"}
+                }
+            \end{figure}
+        \end{column}
+    \end{columns}
+    \pause
+    \vspace{.1in}
+    \hrule
+    But what if we want to control \emph{multiple} devices with a shared data and clock line?
+\end{frame}
+
+\begin{frame}{Shared Lines}
+    \begin{columns}
+        \begin{column}{0.33\textwidth}
+            {\footnotesize
+            \begin{itemize}
+                \item Add an \textbf{Enable} line for each device
+                \item Requires $n+2$ lines
+                \item Data updates only when the \textbf{Enable} line is high
+            \end{itemize}
+            }
+        \end{column}
+        \begin{column}{0.66\textwidth}
+            \begin{figure}
+                \shadowbox{
+                \includegraphics[width=0.95\textwidth]{"figures/Master-Slave 1-2a"}
+                }
+            \end{figure}
+        \end{column}
+    \end{columns}
+    \pause
+    \vspace{.1in}
+    \hrule
+    Cool, but is this \emph{optimal?} Short answer: It depends.
+\end{frame}
+
+\begin{frame}{Address Lines}
+    \begin{columns}
+        \begin{column}{0.33\textwidth}
+            {\footnotesize
+            \begin{itemize}
+                \item Replace individual \textbf{Enable} lines with \textbf{Select}
+                \item Requires $\lceil\log_2(\mathrm{n})\rceil+2$ lines
+                \item In this case \textbf{A} has address ``$0$'', while \textbf{B} has address ``$1$''
+                \item This scheme can be extened to any number of bits
+            \end{itemize}
+            }
+        \end{column}
+        \begin{column}{0.66\textwidth}
+            \begin{figure}
+                \shadowbox{
+                \includegraphics[width=0.95\textwidth]{"figures/Master-Slave 1-2b"}
+                }
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{2-wire Protocol}
+    \begin{itemize}
+        \item Address data is now pushed along data line
+        \item Requires only $2$ lines
+        \item In this case \textbf{A} has a 2-bit address (A1,A0)
+        \item This diagram is incomplete since it doesn't include end-of-write circuitry, but it demonstrates the idea.
+    \end{itemize}
+    \begin{figure}
+        \shadowbox{
+        \includegraphics[width=0.75\textwidth]{"figures/Master-Slave 1-2c"}
+        }
+    \end{figure}
+\end{frame}
+
+\section{Pixel Address Pads}
+
+\begin{frame}{CMS Pixel DAQ}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{"figures/Pixel Readout"}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{TBM08}
+    \begin{columns}
+        \begin{column}{0.45\textwidth}
+            {\scriptsize
+            \begin{tabular}{c|l}
+                 \texttt{HA*} & Hub Address Pads \\
+                 & Internally pulled down \\
+                 \texttt{ClkIn} & Serial Clock Input \\
+                 \texttt{SDaIn }& Serial Data  Input\\
+                 \texttt{RCL} & Return Serial Clock \\
+                 \texttt{RDa} & Return Serial Data \\
+            \end{tabular}
+            }
+            \vspace{.1in}
+            \hrule
+            \vspace{.1in}
+            Note: The \textbf{data} readout does \emph{not} happen on these lines. That is on \texttt{OutA}.
+        \end{column}
+        \begin{column}{0.55\textwidth}
+            \begin{figure}
+                \includegraphics[angle=90, height=0.80\textheight]{"figures/TBM08"}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \begin{columns}
+        \begin{column}{0.25\textwidth}
+            \begin{figure}
+                \includegraphics[angle=90, height=0.95\textheight]{"figures/Module"}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.75\textwidth}
+            \begin{figure}
+                \includegraphics[width=\textwidth]{"figures/review_address_HV_pads"}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Serial Command Prototcol}
+    \begin{figure}
+        \includegraphics[width=1.02\textwidth]{"figures/SerialCommandWaveform"}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{References}
+    \nocite{*}
+    \bibliographystyle{abbrv}
+    {\tiny
+    \bibliography{references} 
+    }
+\end{frame}
+
+
+
+\end{document}
