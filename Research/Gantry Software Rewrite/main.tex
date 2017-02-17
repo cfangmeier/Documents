@@ -1,0 +1,259 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{appendixnumberbeamer}
+
+\usetheme[left,hideothersubsections,height=1.2cm,width=2.0cm]{UNLTheme}
+
+\title{SiLab Gantry Software Development}
+
+\author{Caleb~Fangmeier \and Jose~Monroy}
+
+\institute[UNL]{University of Nebraska - Lincoln}
+
+\date{CMS FPIX Meeting - April 27, 2013}
+
+\subject{SiLab Gantry Software Development}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{The Problem}
+
+\begin{frame}{Timeline}
+  \begin{itemize}
+  \item {
+  Spring 2012 - UNL gantry acquired
+  }
+  \pause
+  \item {
+    July 3, 2014 - Initial commit of gantry software. \\
+    Gluing routine already heavily under development.
+  }
+  \pause
+  \item {
+    Summer 2015 - Phase I pre-production begins. \\
+    \textcolor{red}{Software begins to be stressed.}
+  }
+  \pause
+  \item {
+    Fall 2015 - Identify memory leak in potting routine \\
+    \textcolor{red}{Limits potting to 1 module per session} \\
+    \textcolor{red}{$\rightarrow \approx$one hour per module}
+  }
+  \pause
+  \item {
+    Oct. 14, 2015 - Begin software rewrite. Focus on potting.
+  }
+  \pause
+  \item {
+    March 30, 2016 - \textcolor{green}{New routine deployed.} 
+  }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Original Software}
+  \begin{itemize}
+    \item Performed needed actions and served as a good R\&D platform
+    \item But...
+      \begin{itemize}
+        \item Unreliable - Memory leak results in unpredictable crashes.
+        \item Unmaintainable - Essentially a single script that has grown to do the whole routine.
+      \end{itemize}
+    \item Clearly a rewrite is in order.
+  \end{itemize}
+\end{frame}
+
+\section{The Solution}
+
+\begin{frame}{The Solution}
+\begin{itemize}
+    \item Qualities of old software made it impractical to reuse parts.
+    \item Rewrite software from scratch!
+    \item Bring in a UNL \texttt{LabVIEW} expert, Dustin Dam, to consult with redesign.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{OO Design}
+\begin{itemize}
+    \item Adhere to \texttt{LabVIEW} software best practices.
+    \begin{itemize}
+        \item Don't fight data-flow.
+        \item Small functions.
+        \item Organize code into \texttt{LabVIEW} project.
+    \end{itemize}
+    \item Take advantage of \texttt{LabVIEW}'s Object-Oriented features.
+    \item Encapsulate \emph{all} hardware interaction within a single class (\texttt{Gantry}).
+    \item Use inheritance to model specialized functionality of the gantry's ``Tools''.
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[height=0.35\textheight]{"figures/Class Hierarchy"}
+    \label{fig:class_hierarchy}:
+\end{figure}
+\end{frame}
+
+\begin{frame}{Code Sample}
+\begin{figure}
+    \centering
+    \shadowbox{
+        \includegraphics[width=0.8\textwidth]{"figures/Code Sample"}
+    }
+    \label{fig:code_sample}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Encapsulation Routine Architecture}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/Gantry Software Architecture"}
+    % \caption{Caption}
+    \label{fig:gantry_software_architecture}
+\end{figure}
+\end{frame}
+
+\section{A Short Tour}
+
+\begin{frame}{Gantry Table Setup}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/Gantry Table"}
+    % \caption{Caption}
+    \label{fig:gantry_table}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Session Configuration}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/ui/configure_tester"}
+    % \caption{Caption}
+    \label{fig:configure_tester}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Fiducial Verification}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/ui/review_fiducials"}
+    % \caption{Caption}
+    \label{fig:review_fiducials}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Potting Locations}
+\begin{itemize}
+    \item \alert{Red} lines indicate what must be potted.
+    \begin{itemize}
+        \item \texttt{HDI}$\longleftrightarrow$\texttt{ROC} Bonds
+        \item \texttt{TBM}$\longleftrightarrow$\texttt{HDI} Bonds
+        \item Address Pad Bonds
+        \item \texttt{HV} Bonds
+    \end{itemize}
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/Module Annotated - All"}
+    % \caption{Caption}
+    \label{fig:module_annotated_all}
+\end{figure}
+\vspace{4cm}
+\end{frame}
+
+\begin{frame}{Potting Locations - HDI Bond Pad Groups}
+\begin{itemize}
+    \item Take images at \textcolor{blue}{blue crosses}.
+    \item User selects point within images.
+    \item Points are used to calculate the \textcolor{red}{red line segments}.
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/Module Annotated - Bond Pads HDI"}
+    % \caption{Caption}
+    \label{fig:module_annotated_bond_pads_hdi}
+\end{figure}
+\vspace{4cm}
+\end{frame}
+
+\begin{frame}{UI - HDI Bond Pad Groups}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/ui/review_HDI_pads"}
+    \label{fig:review_hdi_pads}
+\end{figure}
+\end{frame}
+
+\section{Summary}
+
+\begin{frame}{Summary}
+\begin{itemize}
+    \item Potting routine deployed March 30
+    \begin{itemize}
+        \item Slow ramp up, but we can now encapsulate 8 modules per session.
+        \item 16 minutes per module (down from an hour with original routine)
+        \item 76 modules encapsulated without incident.
+    \end{itemize}
+    \item Code can be found \href{https://git.unl.edu/arts-and-sciences/gantry}{here} (Requires UNL credentials)
+    \item Potting progress and basic analysis of performance can be found  
+    \href{http://nbviewer.jupyter.org/github/cfangmeier/Small/blob/master/Potting\%20Data\%20Analysis/Potting\%20Data\%20Analysis.ipynb}{here}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Outlook}
+\begin{itemize}
+    \item Will rewrite gluing routine over summer with new codebase.
+    \item Can look into alternative code hosting if others want to collaborate.
+\end{itemize}
+\end{frame}
+    
+
+\appendix
+\section*{Backup}
+
+\begin{frame}{Potting Locations - TBM}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/Module Annotated - Bond Pads TBM"}
+    % \caption{Caption}
+    \label{fig:module_annotated_bond_pads_tbm}
+\end{figure}
+\end{frame}
+
+\begin{frame}{UI - TBM}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/ui/review_TBM_pads"}
+    % \caption{Caption}
+    \label{fig:review_tbm_pads}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Potting Locations - HV \& Address Pads}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/Module Annotated - Bond Pads HV"}
+    % \caption{Caption}
+    \label{fig:module_annotated_bond_pads_hv}
+\end{figure}
+\end{frame}
+
+\begin{frame}{UI - HV \& Address Pads}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{"figures/ui/review_address_HV_pads"}
+    % \caption{Caption}
+    \label{fig:review_address_hv_pads}
+\end{figure}
+\end{frame}
+\end{document}
